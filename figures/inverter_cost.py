@@ -32,6 +32,6 @@ axes.set_ylabel('Cost per Watt (USD)')
 axes.set_xlabel('Power')
 plt.grid(ls='-', color='#dddddd')
 
-fig.savefig('inverter_cost.pdf')
+fig.savefig('plots/inverter_cost.pdf')
 
 plt.close()

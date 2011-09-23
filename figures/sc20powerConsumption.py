@@ -43,7 +43,7 @@ annotation.append('data points at predicted power of: ' + str(np.round(pred_powe
 annotation = '\n'.join(annotation)
 #plt.show()
 fig.text(0.01,0.01, annotation) #, fontproperties=textFont)
-fig.savefig(fileNameString+'.pdf')
+fig.savefig('plots/'+fileNameString+'.pdf')
 plt.close(fig)
 
 sc20_mains_error = np.round(np.abs(sc20_mains - pred_power)*100/pred_power,2)
@@ -69,4 +69,4 @@ annotation2.append('data points at predicted power of: ' + str(np.round(pred_pow
 annotation2 = '\n'.join(annotation2)
 #plt.show()
 fig2.text(0.01,0.01, annotation2) #, fontproperties=textFont)
-fig2.savefig(fileNameString2+'.pdf')
+fig2.savefig('plots/'+fileNameString2+'.pdf')

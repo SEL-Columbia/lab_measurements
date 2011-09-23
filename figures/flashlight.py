@@ -18,5 +18,5 @@ axs[1].invert_xaxis()
 axs[1].set_title('lux vs. voltage')
 axs[2].plot(distance, lux_at_d)
 axs[2].set_title('lux vs. horizontal distance, at 25cm height')
-fig.savefig('flashlight.pdf')
+fig.savefig('plots/flashlight.pdf')
 
