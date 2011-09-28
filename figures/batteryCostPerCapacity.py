@@ -12,6 +12,25 @@ def addEntry(key, chem, cost, energy):
 
 dict = {}
 
+#d = np.loadtxt('csv/battery_prices.csv',skiprows=1,usecols=[0,3,4,6],delimiter=',', dtype=[('chem',str),('cap',float),('model',str),('price',float)] )
+#d = np.loadtxt('csv/battery_prices.csv',skiprows=1,usecols=[0,3,4,6],delimiter=',', dtype=None )
+d = np.loadtxt('csv/battery_prices.csv',skiprows=1,usecols=[0,3,4,6],delimiter=',', dtype=str )
+#d = np.loadtxt('csv/battery_prices.csv',skiprows=1,usecols=[0,3,4,6],delimiter=',', dtype={'names': ('chem', 'cap', 'model','price'),'formats': ('S1', 'f4','S1', 'f4')} )
+#d = np.genfromtxt('csv/battery_prices.csv',skiprows=1,usecols=[0,3,4,6],delimiter=',', filling_values=0 ,dtype=[('chem','S5'),('cap','f8'),('model','S5'),('price','f8')] )
+#d = np.genfromtxt('csv/battery_prices.csv',skip_header=1,skip_footer=1,usecols=[0,3,4,6],delimiter=',', filling_values=0 ,dtype=None, names=['chem','cap','model','price'] )
+#d = np.genfromtxt('csv/battery_prices.csv',skip_header=1,skip_footer=1,usecols=[0,3,4,6],delimiter=",", filling_values=0 ,dtype="S5,f8,S5,f8", names=['chem','cap','model','price'] )
+
+chem = [d[x,0].replace('"','') for x in range(len(d))]
+cap = [float(d[x,1]) for x in range(len(d))]
+cap_kwh = [cap[x]/1000 for x in range(len(cap))]
+#cap_kwh = d['cap']/1000
+model = [d[x,2].strip('"') for x in range(len(d))]
+price = [float(d[x,3]) for x in range(len(d))]
+#cpkwh = price / cap_kwh
+#cpkwh = d['price'] / cap_kwh
+cpkwh = [price[x]/cap_kwh[x] for x in range(len(price))]
+
+'''
 addEntry(1, chem='SLA',  cost = 165, energy = 0.6)
 addEntry(2, chem='SLA',  cost = 64.6, energy = 0.24)
 addEntry(3, chem='SLA',  cost = 34.85, energy = 0.108)
@@ -32,18 +51,48 @@ addEntry(16, chem='NiMH', cost = 7.3,  energy = 0.009)
 addEntry(17, chem='NiMH', cost = 8,  energy = 0.0108)
 #addEntry('SharedSolar', cost = 1.0,  energy = 0.2)
 #addEntry('Advanced LA',   cost = 16,   energy = 16/0.2)
+'''
 
 fig = plt.figure()
 axes = fig.add_subplot(111)
 
 colormap = ['b','g','r','c','m','y','k','brown', 'deeppink','darkslateblue','dimgray','indigo','lightseagreen']
 mkr = ['.',',','o','v','^','<','>','1','2','3','4','s','p','*','h','H','+','x','D','d','|','_']
+
+'''
 for key in dict.keys():
     axes.loglog(dict[key]['energy'], dict[key]['cpkWh'], c=colormap[len(dict[key]['chem'])-3], marker=mkr[len(dict[key]['chem'])-3], label=str(dict[key]['chem']))
     #axes.text(dict[key]['cost'], dict[key]['cpkWh'], key)
 #axes.legend(('SLA', 'Lithium', 'NiMH'))
 axes.legend(loc=0)
+'''
 
+for i in range(len(d)):
+    if chem[i]=='SLA':
+        color = 'k'
+        mkr = 's'
+    elif chem[i] == 'Lithium':
+        color = 'b'
+        mkr = 'o'
+    elif chem[i] == 'NiMH':
+        color = 'orange'
+        mkr = '^'
+    else:
+        color = 'brown'
+        mkr = '+'
+    axes.loglog(cap_kwh[i], cpkwh[i], c=color, marker=mkr, ls='None', label=model[i])
+    #axes.loglog(cap_kwh, cpkwh, c=color, marker=mkr, label=d['model'][i])
+    axes.text(cap_kwh[i],cpkwh[i],'  '+model[i],color=color, fontsize=6, ha='left', va='center')
+#axes.legend(('SLA','Lithium','NiMH'))
+legendline1='SLA'
+legendline2='Lithium'
+legendline3='NiMH'
+axes.plot(0.89, 0.11, 's', color='k', transform=axes.transAxes)
+axes.text(0.9, 0.1, legendline1, color = 'k', fontsize=10, transform=axes.transAxes)
+axes.plot(0.89, 0.07, 'o', color = 'b', transform=axes.transAxes)
+axes.text(0.9,0.06, legendline2, color = 'b', fontsize=10, transform=axes.transAxes)
+axes.plot(0.89,0.03, '^', color = 'orange', transform=axes.transAxes)
+axes.text(0.9,0.02, legendline3, color = 'orange', fontsize=10, transform=axes.transAxes)
 '''
 from matplotlib.patches import Rectangle
 
@@ -61,7 +110,7 @@ plt.xlabel('Battery Capacity (kWh)')
 plt.ylabel('Cost Per kWh')
 
 plt.grid()
-plt.savefig('costVsCapacity.pdf')
+plt.savefig('plots/costVsCapacity.pdf')
 plt.show()
 
 plt.close()
