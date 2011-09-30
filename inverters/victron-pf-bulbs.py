@@ -35,7 +35,7 @@ plt.title('Victron Inverter Efficiency with SharedSolar Meter and CFL Bulbs')
 plt.xlabel('load: meters + cfl bulbs (W)')
 plt.ylabel('efficiency (W/W)')
 
-plt.grid()
+plt.grid(color='grey',linestyle='-')
 plt.savefig('plots/victron_eff_pf.pdf')
 plt.show()
 
