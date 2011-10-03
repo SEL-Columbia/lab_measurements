@@ -24,18 +24,18 @@ for i in range(len(power)):
     #axes.text(cap_kwh[i],cpkwh[i],'  '+model[i],color=color, fontsize=6, ha='left', va='center')
 #add power factor data to plot
 for j in range(len(power[0])):
-    axes.text(power_mains[len(power)-1][j], (power_mains[len(power)-1][j]/power[len(power)-1][j])-0.05, str(int(bulbs[j]))+' bulbs',color='0.3', fontsize=8, ha='left', va='top')
-    axes.text(power_mains[len(power)-1][j], (power_mains[len(power)-1][j]/power[len(power)-1][j])-0.08, ' pf: '+str(int(pf_mains[0][j])),color='0.3', fontsize=8, ha='left', va='top')
+    #axes.text(power_mains[len(power)-1][j], (power_mains[len(power)-1][j]/power[len(power)-1][j])-0.05, str(int(bulbs[j]))+' bulbs',color='0.3', fontsize=8, ha='left', va='top')
+    axes.text(power_mains[len(power)-1][j], (power_mains[len(power)-1][j]/power[len(power)-1][j])-0.08, ' pf=0.'+str(int(pf_mains[0][j])),color='0.3', fontsize=8, ha='left', va='top')
 axes.legend(loc=0)
 
-#plt.xlim((0,75))
+plt.xlim((0,100))
 plt.ylim((-0.1,1.1))
 
-plt.title('Victron Inverter efficiency vs. load for 3 input voltages')
-plt.xlabel('load - meters + cfl bulbs (W)')
+plt.title('Victron Inverter Efficiency with SharedSolar Meter and CFL Bulbs')
+plt.xlabel('load: meters + cfl bulbs (W)')
 plt.ylabel('efficiency (W/W)')
 
-plt.grid()
+plt.grid(color='grey',linestyle='-')
 plt.savefig('plots/victron_eff_pf.pdf')
 plt.show()
 
