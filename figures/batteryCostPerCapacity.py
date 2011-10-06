@@ -112,11 +112,11 @@ axes.text(1.3,2,'Shared Solar')
 plt.xlim((-10,50))
 plt.ylim((100,5000))
 
-plt.title('Unit Cost of Energy and Purchase Price')
+plt.title('Batteries Unit Cost of Energy and Purchase Price')
 plt.xlabel('Battery Capacity (kWh)')
 plt.ylabel('Cost Per kWh')
 
-plt.grid()
+plt.grid(color='grey',linestyle='-')
 plt.savefig('plots/costVsCapacity.pdf')
 plt.show()
 
