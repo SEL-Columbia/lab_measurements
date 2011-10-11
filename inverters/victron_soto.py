@@ -21,8 +21,8 @@ dc_power = dc_voltage * dc_current
 self_consumption = dc_power - mains_power
 
 plt.plot(mains_power, self_consumption, 'kx')
-plt.xlim((0,50))
-plt.ylim((0,50))
+plt.xlim((0,100))
+plt.ylim((0,25))
 plt.xlabel('AC Power Delivered By Inverter (W)')
 plt.ylabel('Difference of DC Power Consumed and AC Power Delivered')
 plt.title('Victron Inverter Self-Consumption (Meter and CFL)')
@@ -33,7 +33,7 @@ plt.close()
 
 
 plt.plot(mains_power, mains_power/dc_power, 'kx')
-plt.xlim((0,50))
+plt.xlim((0,100))
 plt.ylim((0,1))
 plt.xlabel('AC Power Delivered By Inverter (W)')
 plt.ylabel('Efficiency (Ratio of AC Power Delivered to DC Power Consumed)')
