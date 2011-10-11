@@ -7,12 +7,13 @@ compact fluorescent lightbulb loads on the meter
 import matplotlib.pyplot as plt   # version 1.0.1
 import numpy as np                # version 1.5.1
 
-d = np.loadtxt('csv/victron_efficiency_pf.csv',skiprows=1,usecols=[0,1,2,4,10],delimiter=',', dtype=float)
+d = np.loadtxt('csv/victron_efficiency_pf.csv',skiprows=1, delimiter=',', dtype=float)
 
 # grab columns
 dc_voltage = d[:,1]
 dc_current = d[:,2]
 mains_power = d[:,4]
+mains_pf = d[:,10]
 
 # derive arrays from results
 dc_power = dc_voltage * dc_current
