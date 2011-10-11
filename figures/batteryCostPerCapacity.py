@@ -14,7 +14,7 @@ dict = {}
 
 #d = np.loadtxt('csv/battery_prices.csv',skiprows=1,usecols=[0,3,4,6],delimiter=',', dtype=[('chem',str),('cap',float),('model',str),('price',float)] )
 #d = np.loadtxt('csv/battery_prices.csv',skiprows=1,usecols=[0,3,4,6],delimiter=',', dtype=None )
-d = np.loadtxt('csv/battery_prices.csv',skiprows=1,usecols=[0,3,4,6],delimiter=',', dtype=str )
+d = np.loadtxt('csv/battery_prices.csv',skiprows=1,usecols=[0,3,5,7],delimiter=',', dtype=str )
 #d = np.loadtxt('csv/battery_prices.csv',skiprows=1,usecols=[0,3,4,6],delimiter=',', dtype={'names': ('chem', 'cap', 'model','price'),'formats': ('S1', 'f4','S1', 'f4')} )
 #d = np.genfromtxt('csv/battery_prices.csv',skiprows=1,usecols=[0,3,4,6],delimiter=',', filling_values=0 ,dtype=[('chem','S5'),('cap','f8'),('model','S5'),('price','f8')] )
 #d = np.genfromtxt('csv/battery_prices.csv',skip_header=1,skip_footer=1,usecols=[0,3,4,6],delimiter=',', filling_values=0 ,dtype=None, names=['chem','cap','model','price'] )
@@ -74,6 +74,9 @@ for i in range(len(d)):
     elif chem[i] == 'Lithium':
         color = 'b'
         mkr = 'o'
+    elif chem[i] == 'LiFe':
+        color = 'b'
+        mkr = '*'
     elif chem[i] == 'NiMH':
         color = 'orange'
         mkr = '^'
@@ -86,13 +89,17 @@ for i in range(len(d)):
 #axes.legend(('SLA','Lithium','NiMH'))
 legendline1='SLA'
 legendline2='Lithium'
-legendline3='NiMH'
-axes.plot(0.89, 0.11, 's', color='k', transform=axes.transAxes)
-axes.text(0.9, 0.1, legendline1, color = 'k', fontsize=10, transform=axes.transAxes)
-axes.plot(0.89, 0.07, 'o', color = 'b', transform=axes.transAxes)
-axes.text(0.9,0.06, legendline2, color = 'b', fontsize=10, transform=axes.transAxes)
+legendline3='LiFe'
+legendline4='NiMH'
+axes.plot(0.89, 0.15, 's', color='k', transform=axes.transAxes)
+axes.text(0.9, 0.14, legendline1, color = 'k', fontsize=10, transform=axes.transAxes)
+axes.plot(0.89, 0.11, 'o', color = 'b', transform=axes.transAxes)
+axes.text(0.9,0.1, legendline2, color = 'b', fontsize=10, transform=axes.transAxes)
+axes.plot(0.89, 0.07, '*', color = 'b', transform=axes.transAxes)
+axes.text(0.9,0.06, legendline3, color = 'b', fontsize=10, transform=axes.transAxes)
 axes.plot(0.89,0.03, '^', color = 'orange', transform=axes.transAxes)
-axes.text(0.9,0.02, legendline3, color = 'orange', fontsize=10, transform=axes.transAxes)
+axes.text(0.9,0.02, legendline4, color = 'orange', fontsize=10, transform=axes.transAxes)
+
 '''
 from matplotlib.patches import Rectangle
 
@@ -103,13 +110,13 @@ axes.text(1.3,2,'Shared Solar')
 '''
 
 plt.xlim((-10,50))
-plt.ylim((10,5000))
+plt.ylim((100,5000))
 
-plt.title('Unit Cost of Energy and Purchase Price')
+plt.title('Batteries Unit Cost of Energy and Purchase Price')
 plt.xlabel('Battery Capacity (kWh)')
 plt.ylabel('Cost Per kWh')
 
-plt.grid()
+plt.grid(color='grey',linestyle='-')
 plt.savefig('plots/costVsCapacity.pdf')
 plt.show()
 
